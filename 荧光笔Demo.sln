@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2002
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "荧光笔Demo", "荧光笔Demo\荧光笔Demo.vcxproj", "{C45C70DB-5C4C-4AF0-BBFC-263CCE3D7DBE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ygb反锯齿Demo", "ygb反锯齿Demo\ygb反锯齿Demo.vcxproj", "{0C094528-08BC-43FB-B24D-25E85B6EE51B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
+		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C45C70DB-5C4C-4AF0-BBFC-263CCE3D7DBE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C45C70DB-5C4C-4AF0-BBFC-263CCE3D7DBE}.Debug|Win32.Build.0 = Debug|Win32
+		{C45C70DB-5C4C-4AF0-BBFC-263CCE3D7DBE}.Debug|x64.ActiveCfg = Debug|Win32
+		{C45C70DB-5C4C-4AF0-BBFC-263CCE3D7DBE}.Release|Win32.ActiveCfg = Release|Win32
+		{C45C70DB-5C4C-4AF0-BBFC-263CCE3D7DBE}.Release|Win32.Build.0 = Release|Win32
+		{C45C70DB-5C4C-4AF0-BBFC-263CCE3D7DBE}.Release|x64.ActiveCfg = Release|Win32
+		{0C094528-08BC-43FB-B24D-25E85B6EE51B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0C094528-08BC-43FB-B24D-25E85B6EE51B}.Debug|Win32.Build.0 = Debug|Win32
+		{0C094528-08BC-43FB-B24D-25E85B6EE51B}.Debug|x64.ActiveCfg = Debug|x64
+		{0C094528-08BC-43FB-B24D-25E85B6EE51B}.Debug|x64.Build.0 = Debug|x64
+		{0C094528-08BC-43FB-B24D-25E85B6EE51B}.Release|Win32.ActiveCfg = Release|Win32
+		{0C094528-08BC-43FB-B24D-25E85B6EE51B}.Release|Win32.Build.0 = Release|Win32
+		{0C094528-08BC-43FB-B24D-25E85B6EE51B}.Release|x64.ActiveCfg = Release|x64
+		{0C094528-08BC-43FB-B24D-25E85B6EE51B}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {66FCAD70-A297-4F14-AC7A-1351546D49AD}
+	EndGlobalSection
+EndGlobal
