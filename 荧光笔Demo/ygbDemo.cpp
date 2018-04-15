@@ -57,14 +57,12 @@ vector<SimpleVertex>PointRecord;//记录所有的点
 RECT rc;//保存客户区大小
 int width, height;//客户区宽度 高度
 bool isPress = false;//左键是否按下
-UINT NumLine = 0;//划线条数
-UINT PreLine = 0;//记录前一个点属于哪一条线 计算索引需要
 vector<DWORD>indices;//保存索引缓存区数据
 D3D11_BUFFER_DESC Vertexbuffer;
 D3D11_BUFFER_DESC Indexbuffer;
 Point pt, pre = { 0, 0 };//鼠标坐标点
 DWORD NumPoint = 0;//鼠标坐标点个数
-int Hygb = 9, Wygb = 3;//荧光笔高度
+int Hygb = 9, Wygb = 3;//荧光笔高度宽度
 bool toDraw = false;//标志开始划线
 //--------------------------------------------------------------------------------------
 // Forward declarations
@@ -428,9 +426,6 @@ void CleanupDevice()
 	if (g_pImmediateContext) g_pImmediateContext->Release();
 	if (g_pd3dDevice1) g_pd3dDevice1->Release();
 	if (g_pd3dDevice) g_pd3dDevice->Release();
-	//释放二维vector数组内存
-	indices.swap(vector<DWORD>());
-	PointRecord.swap(vector<SimpleVertex>());
 }
 
 void UpdatePoint()
@@ -505,7 +500,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		{
 			pt.x = LOWORD(lParam);
 			pt.y = HIWORD(lParam);
-			if (abs(pt.x - pre.x) <= 2*Hygb && abs(pt.y - pre.y) <= 1.5*Hygb)
+			if (abs(pt.x - pre.x) < 2.0 * Wygb && abs(pt.y - pre.y) < Hygb)
 				return 0;
 			float x[4], y[4];
 			x[0] = pt.x - Wygb; y[0] = pt.y - Hygb;

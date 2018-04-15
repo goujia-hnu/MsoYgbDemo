@@ -71,7 +71,7 @@ D3D11_BUFFER_DESC Vertexbuffer;
 D3D11_BUFFER_DESC Indexbuffer;
 Point pt, pre;//鼠标坐标点
 DWORD NumPoint = 0;//鼠标坐标点个数
-float Hygb = 3, Wygb = 3;
+float Hygb = 2, Wygb = 2;
 int preState = 0;//0 1 2 3:右上 右下 左上 左下
 Point p1, p2;//前面两个点
 
@@ -468,7 +468,7 @@ void UpdatePoint(vector<SimpleVertex>& vertex, vector<WORD>& indices)
 }
 
 //补三角形最终完善版
-LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK WndProc0(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	PAINTSTRUCT ps;
 	HDC hdc;
@@ -905,7 +905,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 //不补三角形加强版版
-LRESULT CALLBACK WndProc0(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	PAINTSTRUCT ps;
 	HDC hdc;
@@ -1575,107 +1575,10 @@ void Render()
 	}
 	g_pSwapChain->Present(0, 0);
 }
-//XMFLOAT2 CalInterSection(float s1, float t1, float s2, float t2, float s3, float t3, float s4, float t4, int flages)
-//{
-//	//点G(S1, T1), H(S2, T2) 表示的直线为：T = K*S + B
-//	//点P(S3, T3), Q(S4, T4) 表示的直线为： T = M*S + D
-//	float K, B, M, D, X, Y;
-//	if (s1 == s2)
-//	{
-//		X = s1; M = (t3 - t4) / (s3 - s4);
-//		D = t3 - M*s3; Y = M*X + D;
-//	}
-//	else if (s3 == s4)
-//	{
-//		X = s3; K = (t1 - t2) / (s1 - s2);
-//		B = t1 - K*s1; Y = K*X + B;
-//	}
-//	else
-//	{
-//		K = (t1 - t2) / (s1 - s2);
-//		M = (t3 - t4) / (s3 - s4);
-//		B = t1 - K*s1; D = t3 - M*s3;
-//		X = (D - B) / (K - M);
-//		Y = K*(D - B) / (K - M) + B;
-//	}
-//	//交点矫正 不在正常范围的点取中间值
-//	if (flages == 0)
-//	{
-//		if (t3 >= t4)//右上到左上
-//		{
-//			if (max(s1, s4) <= X&&Y <= min(t3, t1) && Y >= max(t2, t4))
-//				return XMFLOAT2(X, Y);
-//			else
-//				return XMFLOAT2((max(s1, s4) + s3) / 2, (min(t3, t1) + max(t2, t4)) / 2);
-//		}
-//		else//右上到右下
-//		{
-//			if (Y <= min(t1, t4) && X >= max(s3,s1)&&X <= min(s2,s4))
-//				return XMFLOAT2(X, Y);
-//			else
-//				return XMFLOAT2((max(s3, s1) + min(s2, s4)) / 2, (min(t1, t4) + t3) / 2);
-//		}
-//	}
-//	else if (flages == 1)
-//	{
-//		if (t3 >= t4)//右下到右上
-//		{
-//			if (Y >= max(t1, t4) && max(s3, s1) <= X&&X <= min(s2, s4))
-//				return XMFLOAT2(X, Y);
-//			else
-//				return XMFLOAT2((max(s1,s3)+min(s2,s4))/2,(max(t1,t4)+t2)/2);
-//		}
-//		else//右下到左下
-//		{
-//			if (max(s1, s4) <= X&&Y >= max(t3, t1) && Y <= min(t2, t4))
-//				return XMFLOAT2(X, Y);
-//			else
-//				return XMFLOAT2((max(s1, s4) + s3) / 2, (max(t3, t1) + min(t2, t4)) / 2);
-//		}
-//	}
-//	else if (flages == 2)
-//	{
-//		if (t3 >= t4)//左上到右上
-//		{
-//			if (X <= min(s1, s4) && Y <= min(t3,t1)&&Y >= max(t2,t4))
-//				return XMFLOAT2(X, Y);
-//			else
-//				return XMFLOAT2((s2 + min(s1, s4)) / 2, (min(t3, t1) + max(t2, t4)) / 2);
-//		}
-//		else//左上到左下
-//		{
-//			if (Y <= min(t4, t1) && X <= min(s3,s1)&&X >= max(s2,s4))
-//				return XMFLOAT2(X, Y);
-//			else
-//				return XMFLOAT2((min(s3, s1) + max(s2, s4)) / 2, (min(t4, t1) + t2) / 2);
-//		}
-//	}
-//	else if (flages == 3)
-//	{
-//		if (t3 >= t4)//左下到左上
-//		{
-//			if (Y >= max(t1, t4) && X <= min(s3,s1)&&X >= max(s2,s4))
-//				return XMFLOAT2(X, Y);
-//			else
-//				return XMFLOAT2((min(s3, s1) + max(s2, s4)) / 2, (t2 + max(t1, t4)) / 2);
-//		}
-//		else//左下到右下
-//		{
-//			if (X <= min(s1, s4) && Y >= max(t3,t1)&&Y <= min(t2,t4))
-//				return XMFLOAT2(X, Y);
-//			else
-//				return XMFLOAT2((s2 + min(s1, s4)) / 2, (max(t3, t1) + min(t2, t4)) / 2);
-//		}
-//	}
-//	else
-//		return XMFLOAT2(X, Y);
-//}
-//http://blog.csdn.net/fu_shuwu/article/details/78376803
-
-//点G(S1, T1), H(S2, T2) 表示的直线为：T = K*S + B
-//点P(S3, T3), Q(S4, T4) 表示的直线为： T = M*S + D
 XMFLOAT2 CalInterSection(float s1, float t1, float s2, float t2, float s3, float t3, float s4, float t4, int flages)
 {
+	//点G(S1, T1), H(S2, T2) 表示的直线为：T = K*S + B
+	//点P(S3, T3), Q(S4, T4) 表示的直线为： T = M*S + D
 	float K, B, M, D, X, Y;
 	if (s1 == s2)
 	{
@@ -1695,53 +1598,150 @@ XMFLOAT2 CalInterSection(float s1, float t1, float s2, float t2, float s3, float
 		X = (D - B) / (K - M);
 		Y = K*(D - B) / (K - M) + B;
 	}
+	//交点矫正 不在正常范围的点取中间值
 	if (flages == 0)
+	{
 		if (t3 >= t4)//右上到左上
+		{
 			if (max(s1, s4) <= X&&Y <= min(t3, t1) && Y >= max(t2, t4))
 				return XMFLOAT2(X, Y);
 			else
-				return XMFLOAT2((s1 + s2) / 2, (t1 + t2) / 2);
+				return XMFLOAT2((max(s1, s4) + s3) / 2, (min(t3, t1) + max(t2, t4)) / 2);
+		}
 		else//右上到右下
-			if (Y <= min(t1, t4) && X >= max(s3, s1) && X <= min(s2, s4))
+		{
+			if (Y <= min(t1, t4) && X >= max(s3,s1)&&X <= min(s2,s4))
 				return XMFLOAT2(X, Y);
 			else
-				return XMFLOAT2((s1 + s2) / 2, (t1 + t2) / 2);
+				return XMFLOAT2((max(s3, s1) + min(s2, s4)) / 2, (min(t1, t4) + t3) / 2);
+		}
+	}
 	else if (flages == 1)
+	{
 		if (t3 >= t4)//右下到右上
+		{
 			if (Y >= max(t1, t4) && max(s3, s1) <= X&&X <= min(s2, s4))
 				return XMFLOAT2(X, Y);
 			else
-				return XMFLOAT2((s1 + s2) / 2, (t1 + t2) / 2);
+				return XMFLOAT2((max(s1,s3)+min(s2,s4))/2,(max(t1,t4)+t2)/2);
+		}
 		else//右下到左下
+		{
 			if (max(s1, s4) <= X&&Y >= max(t3, t1) && Y <= min(t2, t4))
 				return XMFLOAT2(X, Y);
 			else
-				return XMFLOAT2((s1 + s2) / 2, (t1 + t2) / 2);
+				return XMFLOAT2((max(s1, s4) + s3) / 2, (max(t3, t1) + min(t2, t4)) / 2);
+		}
+	}
 	else if (flages == 2)
+	{
 		if (t3 >= t4)//左上到右上
-			if (X <= min(s1, s4) && Y <= min(t3, t1) && Y >= max(t2, t4))
+		{
+			if (X <= min(s1, s4) && Y <= min(t3,t1)&&Y >= max(t2,t4))
 				return XMFLOAT2(X, Y);
 			else
-				return XMFLOAT2((s1 + s2) / 2, (t1 + t2) / 2);
+				return XMFLOAT2((s2 + min(s1, s4)) / 2, (min(t3, t1) + max(t2, t4)) / 2);
+		}
 		else//左上到左下
-			if (Y <= min(t4, t1) && X <= min(s3, s1) && X >= max(s2, s4))
+		{
+			if (Y <= min(t4, t1) && X <= min(s3,s1)&&X >= max(s2,s4))
 				return XMFLOAT2(X, Y);
 			else
-				return XMFLOAT2((s1 + s2) / 2, (t1 + t2) / 2);
+				return XMFLOAT2((min(s3, s1) + max(s2, s4)) / 2, (min(t4, t1) + t2) / 2);
+		}
+	}
 	else if (flages == 3)
+	{
 		if (t3 >= t4)//左下到左上
-			if (Y >= max(t1, t4) && X <= min(s3, s1) && X >= max(s2, s4))
+		{
+			if (Y >= max(t1, t4) && X <= min(s3,s1)&&X >= max(s2,s4))
 				return XMFLOAT2(X, Y);
 			else
-				return XMFLOAT2((s1 + s2) / 2, (t1 + t2) / 2);
+				return XMFLOAT2((min(s3, s1) + max(s2, s4)) / 2, (t2 + max(t1, t4)) / 2);
+		}
 		else//左下到右下
-			if (X <= min(s1, s4) && Y >= max(t3, t1) && Y <= min(t2, t4))
+		{
+			if (X <= min(s1, s4) && Y >= max(t3,t1)&&Y <= min(t2,t4))
 				return XMFLOAT2(X, Y);
 			else
-				return XMFLOAT2((s1 + s2) / 2, (t1 + t2) / 2);
+				return XMFLOAT2((s2 + min(s1, s4)) / 2, (max(t3, t1) + min(t2, t4)) / 2);
+		}
+	}
 	else
 		return XMFLOAT2(X, Y);
 }
+//http://blog.csdn.net/fu_shuwu/article/details/78376803
+
+//点G(S1, T1), H(S2, T2) 表示的直线为：T = K*S + B
+//点P(S3, T3), Q(S4, T4) 表示的直线为： T = M*S + D
+//XMFLOAT2 CalInterSection(float s1, float t1, float s2, float t2, float s3, float t3, float s4, float t4, int flages)
+//{
+//	float K, B, M, D, X, Y;
+//	if (s1 == s2)
+//	{
+//		X = s1; M = (t3 - t4) / (s3 - s4);
+//		D = t3 - M*s3; Y = M*X + D;
+//	}
+//	else if (s3 == s4)
+//	{
+//		X = s3; K = (t1 - t2) / (s1 - s2);
+//		B = t1 - K*s1; Y = K*X + B;
+//	}
+//	else
+//	{
+//		K = (t1 - t2) / (s1 - s2);
+//		M = (t3 - t4) / (s3 - s4);
+//		B = t1 - K*s1; D = t3 - M*s3;
+//		X = (D - B) / (K - M);
+//		Y = K*(D - B) / (K - M) + B;
+//	}
+//	if (flages == 0)
+//		if (t3 >= t4)//右上到左上
+//			if (max(s1, s4) <= X&&Y <= min(t3, t1) && Y >= max(t2, t4))
+//				return XMFLOAT2(X, Y);
+//			else
+//				return XMFLOAT2((s1 + s2) / 2, (t1 + t2) / 2);
+//		else//右上到右下
+//			if (Y <= min(t1, t4) && X >= max(s3, s1) && X <= min(s2, s4))
+//				return XMFLOAT2(X, Y);
+//			else
+//				return XMFLOAT2((s1 + s2) / 2, (t1 + t2) / 2);
+//	else if (flages == 1)
+//		if (t3 >= t4)//右下到右上
+//			if (Y >= max(t1, t4) && max(s3, s1) <= X&&X <= min(s2, s4))
+//				return XMFLOAT2(X, Y);
+//			else
+//				return XMFLOAT2((s1 + s2) / 2, (t1 + t2) / 2);
+//		else//右下到左下
+//			if (max(s1, s4) <= X&&Y >= max(t3, t1) && Y <= min(t2, t4))
+//				return XMFLOAT2(X, Y);
+//			else
+//				return XMFLOAT2((s1 + s2) / 2, (t1 + t2) / 2);
+//	else if (flages == 2)
+//		if (t3 >= t4)//左上到右上
+//			if (X <= min(s1, s4) && Y <= min(t3, t1) && Y >= max(t2, t4))
+//				return XMFLOAT2(X, Y);
+//			else
+//				return XMFLOAT2((s1 + s2) / 2, (t1 + t2) / 2);
+//		else//左上到左下
+//			if (Y <= min(t4, t1) && X <= min(s3, s1) && X >= max(s2, s4))
+//				return XMFLOAT2(X, Y);
+//			else
+//				return XMFLOAT2((s1 + s2) / 2, (t1 + t2) / 2);
+//	else if (flages == 3)
+//		if (t3 >= t4)//左下到左上
+//			if (Y >= max(t1, t4) && X <= min(s3, s1) && X >= max(s2, s4))
+//				return XMFLOAT2(X, Y);
+//			else
+//				return XMFLOAT2((s1 + s2) / 2, (t1 + t2) / 2);
+//		else//左下到右下
+//			if (X <= min(s1, s4) && Y >= max(t3, t1) && Y <= min(t2, t4))
+//				return XMFLOAT2(X, Y);
+//			else
+//				return XMFLOAT2((s1 + s2) / 2, (t1 + t2) / 2);
+//	else
+//		return XMFLOAT2(X, Y);
+//}
 
 XMFLOAT2 CalInterSection(Point p1, Point p2, Point p3, Point p4, int flages)
 {

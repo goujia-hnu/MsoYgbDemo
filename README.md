@@ -1,2 +1,3 @@
 # MsoYgbDemo
 用Direct3D11实现微软office PowerPoint演示ppt荧光笔功能
+另一个demo采用反锯齿算法,也就是直线表达式反锯齿
