@@ -1,9 +1,9 @@
 //filename:Tutorial02.fx
 //--------------------------------------------------------------------------------------
-cbuffer screenWH:register(b0) {
-	int width;
-	int height;
-};
+//cbuffer screenWH:register(b0) {
+//	int width;
+//	int height;
+//};
 struct VS_INPUT{
 	float3 Pos:POSITION;
 };
@@ -24,7 +24,7 @@ PS_INPUT VS(VS_INPUT input)
 //--------------------------------------------------------------------------------------
 float4 PS(PS_INPUT input) : SV_Target
 {
-	float offsetx = 2.0 / width;
-	float offsety = 2.0 / height;
+	//float offsetx = 2.0 / width;
+	//float offsety = 2.0 / height;
 	return float4(1.0f, 1.0f, 0.0f,1.0f);  
 }
